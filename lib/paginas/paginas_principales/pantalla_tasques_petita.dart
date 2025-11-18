@@ -1,4 +1,5 @@
 import 'package:app_tasques/colores_app.dart';
+import 'package:app_tasques/components/item_tarea.dart';
 import 'package:flutter/material.dart';
 
 class PantallaTasquesPetita extends StatelessWidget {
@@ -19,8 +20,29 @@ class PantallaTasquesPetita extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: SizedBox(height: 10)),
-      floatingActionButton: Row(
+      body: Column(children: [
+        Container(
+          width: double.infinity,
+          height: 2,
+          decoration: BoxDecoration(
+            color: ColoresApp().colorBlanco,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 2,
+              )
+            ]
+            ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: 30,
+            itemBuilder: (context, index) {
+              return ItemTarea(textoCheckbox: index.toString(),);
+            },
+          ),
+        ),
+      ],),
+      floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
@@ -29,7 +51,7 @@ class PantallaTasquesPetita extends StatelessWidget {
             backgroundColor:ColoresApp().colorPrincipal,
             child: Icon(Icons.add, color: ColoresApp().colorSecundario),
           ),
-          SizedBox(width: 10,),
+          SizedBox(height: 10,),
           FloatingActionButton(
             onPressed: () {},
             shape: CircleBorder(side: BorderSide(color: ColoresApp().colorSecundario)),
