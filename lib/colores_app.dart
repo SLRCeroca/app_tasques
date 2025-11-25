@@ -10,5 +10,8 @@ class ColoresApp {
 
   Color colorBackground = const Color.fromARGB(255, 235, 131, 245);
 
-  Color colorBlanco = const Color.fromARGB(255, 255, 255, 255);    
+  Color colorBlanco = const Color.fromARGB(255, 255, 255, 255);
+
+  Color colorAceptar =  const Color.fromARGB(255, 177, 255, 158);
+  Color colorRechazar =  const Color.fromARGB(255, 255, 158, 158);    
 }

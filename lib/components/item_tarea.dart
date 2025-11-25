@@ -16,6 +16,7 @@ class ItemTarea extends StatefulWidget {
 
 class _ItemTareaState extends State<ItemTarea> {
   late bool valorCheckbox;
+  //late: Declarar valor pero no sabemos todavia el valor
 
   @override
   void initState() {
@@ -23,7 +24,6 @@ class _ItemTareaState extends State<ItemTarea> {
     valorCheckbox = widget.valorInicialCheckbox;
   }
 
-  //late: Declarar valor pero no sabemos todavia el valor
   @override
   Widget build(BuildContext context) {
     return Container(

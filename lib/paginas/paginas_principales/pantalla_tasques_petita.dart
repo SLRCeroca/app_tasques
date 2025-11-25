@@ -1,4 +1,5 @@
 import 'package:app_tasques/colores_app.dart';
+import 'package:app_tasques/components/dialogo_nueva_tarea.dart';
 import 'package:app_tasques/components/item_tarea.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class PantallaTasquesPetita extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.arrow_back, color: ColoresApp().colorSecundario),
+            icon: Icon(Icons.arrow_forward, color: ColoresApp().colorSecundario),
           ),
         ],
       ),
@@ -46,7 +47,9 @@ class PantallaTasquesPetita extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              abrirDialogoNuevaTarea(context);
+            },
             shape: CircleBorder(side: BorderSide(color: ColoresApp().colorSecundario)),
             backgroundColor:ColoresApp().colorPrincipal,
             child: Icon(Icons.add, color: ColoresApp().colorSecundario),
@@ -61,5 +64,15 @@ class PantallaTasquesPetita extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void abrirDialogoNuevaTarea(BuildContext context){
+    //showDialog es una funcion de flutter que abre un Dialog que hayamos creado/definido.
+    showDialog(
+      context: context, 
+      builder: (context){
+        return DialogoNuevaTarea();
+      },
+      );
   }
 }
