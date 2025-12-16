@@ -1,13 +1,20 @@
 import 'package:app_tasques/colores_app.dart';
 import 'package:app_tasques/components/boton_dialogo.dart';
 import 'package:app_tasques/components/textfield_personalizado.dart';
+import 'package:app_tasques/data/repositorio_tarea.dart';
+import 'package:app_tasques/data/tarea.dart';
 import 'package:flutter/material.dart';
 
 class DialogoNuevaTarea extends StatelessWidget {
-  const DialogoNuevaTarea({super.key});
+  final String textoTarea;
+  final int indexTarea;
 
+  const DialogoNuevaTarea({super.key, this.textoTarea = " ", this.indexTarea = -1});
   @override
   Widget build(BuildContext context) {
+
+    final TextEditingController controlerTextoTarea = TextEditingController();
+
     return AlertDialog(
       backgroundColor: ColoresApp().colorPrincipal,
       shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10),
@@ -25,7 +32,7 @@ class DialogoNuevaTarea extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            TextfieldPersonalizado(),
+            TextfieldPersonalizado(controlerTitulo: controlerTextoTarea,),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -43,7 +50,7 @@ class DialogoNuevaTarea extends StatelessWidget {
                   colorBoton: ColoresApp().colorAceptar,
                   iconoBoton: Icon(Icons.save),
                   accionBoton: () {
-                    guardarTarea(context);
+                    guardarTarea(context, controlerTextoTarea.text);
                   },
                 ),
               ],
@@ -54,7 +61,15 @@ class DialogoNuevaTarea extends StatelessWidget {
     );
   }
 
-  void guardarTarea(BuildContext context) {
+  void editarTarea(BuildContext context, String textoDeLaTarea) {
+    RepositorioTarea repositorioTarea = RepositorioTarea();
+    repositorioTarea.editarTarea(indexTarea, Tarea(titulo: textoDeLaTarea));
+    Navigator.of(context).pop();
+  }
+  
+  void guardarTarea(BuildContext context, String textoDeLaTarea) {
+    RepositorioTarea repositorioTarea = RepositorioTarea();
+    repositorioTarea.ponerTarea(Tarea(titulo: textoDeLaTarea));
     Navigator.of(context).pop();
   }
 

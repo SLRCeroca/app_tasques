@@ -2,11 +2,15 @@ import 'package:app_tasques/colores_app.dart';
 import 'package:flutter/material.dart';
 
 class TextfieldPersonalizado extends StatelessWidget {
-  const TextfieldPersonalizado({super.key});
+  final TextEditingController controlerTitulo;
+  const TextfieldPersonalizado({super.key, required this.controlerTitulo});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+
+      controller: controlerTitulo,
+
       cursorColor: ColoresApp().colorSecundarioFuerte,
       cursorWidth: 1,
       style: TextStyle(

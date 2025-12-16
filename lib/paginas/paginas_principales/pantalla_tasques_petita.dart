@@ -1,13 +1,23 @@
 import 'package:app_tasques/colores_app.dart';
 import 'package:app_tasques/components/dialogo_nueva_tarea.dart';
 import 'package:app_tasques/components/item_tarea.dart';
+import 'package:app_tasques/data/repositorio_tarea.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
-class PantallaTasquesPetita extends StatelessWidget {
+class PantallaTasquesPetita extends StatefulWidget {
   const PantallaTasquesPetita({super.key});
 
   @override
+  State<PantallaTasquesPetita> createState() => _PantallaTasquesPetitaState();
+}
+
+class _PantallaTasquesPetitaState extends State<PantallaTasquesPetita> {
+  @override
   Widget build(BuildContext context) {
+
+    RepositorioTarea repositorioTarea = RepositorioTarea();
+
     return Scaffold(
       backgroundColor: ColoresApp().colorBackground,
       appBar: AppBar(
@@ -35,12 +45,28 @@ class PantallaTasquesPetita extends StatelessWidget {
             ),
         ),
         Expanded(
-          child: ListView.builder(
+
+          child: ValueListenableBuilder( 
+            //Como todo listener, se ejecuta solo cuando "siente" ("listen") que pasa algo.
+            // En este caso ese algo es algun cambio en la box.
+            valueListenable: Hive.box<List<dynamic>>(RepositorioTarea.nombreBoxTareas).listenable(), 
+            builder: (context, Box<List<dynamic>> boxTareas, _) {
+              final listaTareas = repositorioTarea.getListaTareas();
+              return ListView.builder(
+                itemCount: listaTareas?.length,
+                itemBuilder: (context, index){
+                  return ItemTarea(textoCheckbox: listaTareas![index].titulo, indexTarea: index,);
+                }
+                );
+            }
+            ),
+
+          /*child: ListView.builder(
             itemCount: 30,
             itemBuilder: (context, index) {
               return ItemTarea(textoCheckbox: index.toString(),);
             },
-          ),
+          ),*/
         ),
       ],),
       floatingActionButton: Column(
